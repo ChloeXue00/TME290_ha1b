@@ -13,15 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM chrberger/cluon-aarch64:latest as builder
+FROM chrberger/cluon-amd64:latest as builder
 MAINTAINER Christian Berger "christian.berger@gu.se"
 
-RUN [ "cross-build-start" ]
-
-RUN echo http://dl-4.alpinelinux.org/alpine/v3.8/main > /etc/apk/repositories && \
-    echo http://dl-4.alpinelinux.org/alpine/v3.8/community >> /etc/apk/repositories && \
-    echo http://dl-4.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-    apk update && \
+RUN apk update && \
     apk --no-cache add \
         cmake \
         g++ \
@@ -35,23 +30,14 @@ RUN mkdir build && \
     cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/tmp .. && \
     make && make install
 
-RUN [ "cross-build-end" ]
 
-
-FROM chrberger/cluon-aarch64:latest
+FROM chrberger/cluon-amd64:latest
 MAINTAINER Christian Berger "christian.berger@gu.se"
 
-RUN [ "cross-build-start" ]
-
-RUN echo http://dl-4.alpinelinux.org/alpine/v3.8/main > /etc/apk/repositories && \
-    echo http://dl-4.alpinelinux.org/alpine/v3.8/community >> /etc/apk/repositories && \
-    echo http://dl-4.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
-    apk update && \
+RUN apk update && \
     apk --no-cache add \
         opencv-libs \
         libcanberra-gtk3
-
-RUN [ "cross-build-end" ]
 
 WORKDIR /usr/bin
 COPY --from=builder /tmp/bin/image-postprocessing-opencv .
