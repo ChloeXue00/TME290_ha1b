@@ -15,7 +15,7 @@
 
 cmake_minimum_required(VERSION 3.10)
 
-project(opendlv-device-motor-kiwi2)
+project(opendlv-template-microservice)
 
 set(OPENDLV_MESSAGE_STANDARD opendlv-message-standard-1.0.odvd)
 set(CLUON_COMPLETE cluon-complete-v0.0.145.hpp)
@@ -65,7 +65,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
-find_package(pigpio REQUIRED)
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -75,7 +74,6 @@ add_executable(${PROJECT_NAME}
   ${CMAKE_BINARY_DIR}/opendlv-message-standard.hpp)
 
 target_link_libraries(${PROJECT_NAME}
-    Threads::Threads
-    pigpio::pigpiod_if2)
+    Threads::Threads)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION bin COMPONENT ${PROJECT_NAME})

@@ -13,17 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM alpine:edge as builder
+FROM alpine:3.19 as builder
 
 RUN apk update && \
-    apk --no-cache \
-        --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ add \
+    apk --no-cache add \
         cmake \
         g++ \
         make \
-        linux-headers \
-        pigpio \
-        pigpio-dev
+        linux-headers
 
 ADD . /opt/sources
 RUN mkdir /opt/build /opt/out && \
@@ -33,12 +30,11 @@ RUN mkdir /opt/build /opt/out && \
     make && make install
 
 
-FROM alpine:edge
+FROM alpine:3.19
 
-RUN apk update && \
-    apk --no-cache \
-        --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ add \
-        pigpio
+#RUN apk update && \
+#    apk --no-cache add \
+#        some-runtime-package
 
 COPY --from=builder /opt/out/ /usr
-ENTRYPOINT ["/usr/bin/opendlv-device-motor-kiwi2"]
+ENTRYPOINT ["/usr/bin/opendlv-template-microservice"]

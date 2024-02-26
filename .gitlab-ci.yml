@@ -16,7 +16,7 @@
 image: docker
 
 variables:
-  PLATFORMS: "linux/arm64,linux/arm/v7"
+  PLATFORMS: "linux/amd64,linux/arm64,linux/arm/v7"
 
 services:
   - name: docker:dind
@@ -33,9 +33,7 @@ build-arm64:
     - docker-build
   stage: build
   script:
-    - docker run --privileged --rm tonistiigi/binfmt --install all
-    - docker buildx create --name multiplatformbuilder --use
-    - docker buildx build --platform "linux/arm64" .
+    - docker build .
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
