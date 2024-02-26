@@ -1,4 +1,4 @@
-# Copyright (C) 2019  Christian Berger
+# Copyright (C) 2024 OpenDLV
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -13,33 +13,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM chrberger/cluon-amd64:latest as builder
-MAINTAINER Christian Berger "christian.berger@gu.se"
+FROM alpine:edge as builder
 
 RUN apk update && \
-    apk --no-cache add \
+    apk --no-cache \
+        --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ add \
         cmake \
         g++ \
-        opencv \
-        opencv-dev \
-        make
+        make \
+        linux-headers \
+        pigpio \
+        pigpio-dev
+
 ADD . /opt/sources
-WORKDIR /opt/sources
-RUN mkdir build && \
-    cd build && \
-    cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/tmp .. && \
+RUN mkdir /opt/build /opt/out && \
+    cd /opt/build && \
+    cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/opt/out \
+      /opt/sources && \
     make && make install
 
 
-FROM chrberger/cluon-amd64:latest
-MAINTAINER Christian Berger "christian.berger@gu.se"
+FROM alpine:edge
 
 RUN apk update && \
-    apk --no-cache add \
-        opencv-libs \
-        libcanberra-gtk3
+    apk --no-cache \
+        --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ add \
+        pigpio
 
-WORKDIR /usr/bin
-COPY --from=builder /tmp/bin/image-postprocessing-opencv .
-ENTRYPOINT ["/usr/bin/image-postprocessing-opencv"]
-
+COPY --from=builder /opt/out/ /usr
+ENTRYPOINT ["/usr/bin/opendlv-device-motor-kiwi2"]
