@@ -1,0 +1,42 @@
+# OpenDLV C++ code format, 1.0
+
+AccessModifierOffset : -1
+AlignAfterOpenBracket : DontAlign
+AlignArrayOfStructures : None
+AlignConsecutiveAssignments : None
+AlignConsecutiveBitFields : None
+AlignConsecutiveDeclarations : None
+AlignConsecutiveMacros : None
+AlignEscapedNewlines : DontAlign
+AlignOperands : DontAlign
+AlignTrailingComments : Never
+AllowShortIfStatementsOnASingleLine : false
+AlwaysBreakTemplateDeclarations : true
+BreakBeforeBinaryOperators : false
+BreakBeforeBraces : WebKit
+ColumnLimit : 80
+ContinuationIndentWidth : 4
+FixNamespaceComments : false
+IncludeBlocks : Preserve
+InsertBraces : true
+LambdaBodyIndentation : OuterScope
+MaxEmptyLinesToKeep : 2
+NamespaceIndentation : None
+PointerAlignment : Right
+QualifierAlignment : Custom
+QualifierOrder : ['inline', 'static', 'type', 'const']
+SpaceAfterCStyleCast : false
+SpaceAfterLogicalNot : false
+SpaceAfterTemplateKeyword : false
+SpaceBeforeAssignmentOperators : true
+SpaceBeforeCaseColon : false
+SpaceBeforeCpp11BracedList : false
+SpaceBeforeCtorInitializerColon : true
+SpaceBeforeParens : ControlStatements
+SpaceBeforeRangeBasedForLoopColon : true
+SpaceBeforeSquareBrackets : false
+SpaceInEmptyBlock : false
+SpacesInAngles : Never
+SpacesInContainerLiterals : false
+SpacesInSquareBrackets : false
+Standard : C++11
