@@ -1,19 +1,5 @@
 /*
  * Copyright (C) 2024 OpenDLV
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
 message opendlv.sim.FrameEuler [id = 1001] {
@@ -140,7 +126,7 @@ message opendlv.proxy.ImageReading [id = 1055] {
   uint32 width [id = 2];
   uint32 height [id = 3];
   bytes data [id = 4];
-  uint32 frame [id = 5];
+  uint32 frameId [id = 5];
 }
 
 message opendlv.proxy.RemoteMessageReading [id = 1056] {
@@ -289,50 +275,53 @@ message opendlv.logic.sensation.Orientation [id = 1119] {
   float qw [id = 4];
 }
 
-message opendlv.logic.perception.DetectionEnd [id = 1129] {
-  uint32 detectionId [id = 1];
-}
-
-message opendlv.logic.perception.DetecionType [id = 1130] {
-  uint32 detectionId [id = 1];
-  uint32 type [id = 2];
+message opendlv.logic.perception.DetectionType [id = 1130] {
+  uint32 frameId [id = 1];
+  uint32 detectionId [id = 2];
+  uint32 type [id = 3];
 }
 
 message opendlv.logic.perception.DetectionProperty [id = 1131] {
-  uint32 detectionId [id = 1];
-  string property [id = 2];
+  uint32 frameId [id = 1];
+  uint32 detectionId [id = 2];
+  string property [id = 3];
 }
 
 message opendlv.logic.perception.DetectionDirection [id = 1132] {
-  uint32 detectionId [id = 1];
-  float azimuthAngle [id = 2];
-  float zenithAngle [id = 3];
+  uint32 frameId [id = 1];
+  uint32 detectionId [id = 2];
+  float azimuthAngle [id = 3];
+  float zenithAngle [id = 4];
 }
 
 message opendlv.logic.perception.DetectionDistance [id = 1133] {
-  uint32 detectionId [id = 1];
-  float distance [id = 2];
+  uint32 frameId [id = 1];
+  uint32 detectionId [id = 2];
+  float distance [id = 3];
 }
 
 message opendlv.logic.perception.DetectionBoundingBox [id = 1134] {
-  uint32 detectionId [id = 1];
-  float x [id = 2];
-  float y [id = 3];
-  float width [id = 4];
-  float height [id = 5];
+  uint32 frameId [id = 1];
+  uint32 detectionId [id = 2];
+  float x [id = 3];
+  float y [id = 4];
+  float width [id = 5];
+  float height [id = 6];
 }
 
 message opendlv.logic.perception.DetectionPosition [id = 1135] {
-  uint32 detectionId [id = 1];
-  float x [id = 2];
-  float y [id = 3];
-  float z [id = 4];
+  uint32 frameId [id = 1];
+  uint32 detectionId [id = 2];
+  float x [id = 3];
+  float y [id = 4];
+  float z [id = 5];
 }
 
 message opendlv.logic.perception.DetectionSurface [id = 1136] {
-  uint32 detectionId [id = 1];
-  string format [id = 2];
-  bytes data [id = 3];
+  uint32 frameId [id = 1];
+  uint32 detectionId [id = 2];
+  string format [id = 3];
+  bytes data [id = 4];
 }
 
 message opendlv.logic.action.AimDirection [id = 1171] {

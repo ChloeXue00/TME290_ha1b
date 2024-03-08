@@ -1,17 +1,4 @@
 # Copyright (C) 2024 OpenDLV
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.10)
 
@@ -40,17 +27,30 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
     -Wmissing-field-initializers -Wmissing-format-attribute \
     -Wmissing-include-dirs -Wmissing-noreturn")
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}")
+find_package(CluonMsc)
 
-add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/cluon-msc
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+if (NOT CLUONMSC_FOUND)
+  add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/cluon-msc
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+      COMMAND ${CMAKE_COMMAND} -E create_symlink
+      ${CMAKE_BINARY_DIR}/cluon-complete.hpp
+      ${CMAKE_BINARY_DIR}/cluon-complete.cpp
+      COMMAND ${CMAKE_CXX_COMPILER} -o ${CMAKE_BINARY_DIR}/cluon-msc
+      ${CMAKE_BINARY_DIR}/cluon-complete.cpp -std=c++20 -pthread
+      -D HAVE_CLUON_MSC
+      DEPENDS ${CMAKE_BINARY_DIR}/cluon-complete.hpp)
+else (NOT CLUONMSC_FOUND)
+  add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/cluon-msc
+      COMMAND ${CMAKE_COMMAND} -E create_symlink
+      ${CLUONMSC_PATH} ${CMAKE_BINARY_DIR}/cluon-msc
+      DEPENDS ${CMAKE_BINARY_DIR}/cluon-complete.hpp)
+endif (NOT CLUONMSC_FOUND)
+
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/cluon-complete.hpp
     COMMAND ${CMAKE_COMMAND} -E create_symlink
     ${CMAKE_CURRENT_SOURCE_DIR}/src/${CLUON_COMPLETE}
     ${CMAKE_BINARY_DIR}/cluon-complete.hpp
-    COMMAND ${CMAKE_COMMAND} -E create_symlink
-    ${CMAKE_BINARY_DIR}/cluon-complete.hpp
-    ${CMAKE_BINARY_DIR}/cluon-complete.cpp
-    COMMAND ${CMAKE_CXX_COMPILER} -o ${CMAKE_BINARY_DIR}/cluon-msc
-    ${CMAKE_BINARY_DIR}/cluon-complete.cpp -std=c++20 -pthread -D HAVE_CLUON_MSC
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/${CLUON_COMPLETE})
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/opendlv-message-standard.hpp
@@ -60,8 +60,6 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/opendlv-message-standard.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/${OPENDLV_MESSAGE_STANDARD}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/${OPENDLV_MESSAGE_STANARD}
     ${CMAKE_BINARY_DIR}/cluon-msc)
-    
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
