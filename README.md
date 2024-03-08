@@ -17,3 +17,10 @@ An OpenDLV microservice name contains the following parts (in order):
 * The protocol or function of the microserivce, for example `device-gnss-nmea` or `control-lateral-singletrackmodel`. Note that there should be NO word separation (dashes or camel case).
 * Optional. An implementation variant, for example `perception-detect-trafficsign-colorfilter` or `perception-detect-trafficsign-dnn`.
 
+## Dependencies
+
+TODO: Add explaination on how to handle dependenceis in microservices.
+
+In general:
+* Dependencies should only be included in the Dockerfile
+* With exception from header-only libraries, which should be added to a 'thirdparty' folder alongside the 'src' folder.
