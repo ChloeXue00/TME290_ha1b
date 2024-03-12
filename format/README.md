@@ -35,7 +35,7 @@ clang-format --style=file:${HOME}/.opendlv-clangformat some-file.cpp
 
 The above command will only print the formatted output on the terminal, to
 also save the file, run the below. IMPORTANT: Always commit changes before
-running the formatter to avoid overwriting and loosing work.
+running this command to avoid overwriting and loosing work.
 ```bash
 clang-format --style=file:${HOME}/.opendlv-clangformat some-file.cpp > some-file.cpp
 ```
@@ -59,7 +59,7 @@ cat some-file.cpp | docker run -i --rm opendlv-tool-codeformat
 ```
 
 When saving the result, instead run it as below. IMPORTANT: Always commit
-changes before running the formatter to avoid overwriting and loosing work.
+changes before running this command to avoid overwriting and loosing work.
 ```bash
 cat some-file.cpp | docker run -i --rm opendlv-tool-codeformat > some-file.cpp
 ```
