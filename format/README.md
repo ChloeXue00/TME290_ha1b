@@ -76,7 +76,6 @@ To integrate the formatting rules into Vim, please install `clang-format` and
 following into your `.vimrc`:
 ```
 let g:clang_format#extra_args = "--style=file:${HOME}/.opendlv-clangformat"
-
 autocmd FileType c,cpp,hpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,hpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 nmap <Leader>C :ClangFormatAutoToggle<CR>
