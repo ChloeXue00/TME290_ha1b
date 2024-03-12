@@ -5,8 +5,9 @@ code guidelines represented by the `opendlv-clangformat` file in this repository
 The file should NOT be part of each OpenDLV microservice repository, but should
 rather be used as a external file located on your system.
 
-In OpenDLV Desktop, this is already prepared, and the below instructions are not
-needed.
+In OpenDLV Desktop, this is already prepared, and the below installation
+instructions are not needed. The editor integration is also done for Gedit, Vim,
+and Visual Studio Code.
 
 To download the file, run:
 
@@ -69,6 +70,23 @@ It may be desirable to continuously keep the formatting up to standards by
 integrating `clang-format` into your editor of choice. Here follows instructions
 for different common editors.
 
+### Gedit
+
+To integrate the formatting rules into Gedit, please install `clang-format`
+(into the system, as exemplified above) and
+[gedit-plugin-clang-format](https://github.com/footballhead/gedit-plugin-clang-format)
+and in `clangformat.py` change the line:
+```
+p = Popen(['clang-format', '-cursor=%d' % (pos)], stdout=PIPE, stdin=PIPE)
+```
+to
+```
+p = Popen(['clang-format', '-style=file:${HOME}/.opendlv-clangformat', '-cursor=%d' % (pos)], stdout=PIPE, stdin=PIPE)
+```
+and save the file.
+
+Files can now be formatted using the `Ctlr+Shift+f` key combination.
+
 ### Vim
 
 To integrate the formatting rules into Vim, please install `clang-format`
@@ -82,8 +100,8 @@ autocmd FileType c,cpp,hpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 nmap <Leader>C :ClangFormatAutoToggle<CR>
 ```
 
-Files can now be formatted using the `<Leader>+c+f` key combination. The leader
-key is by default `\`. Automatic formatting can be activated using `<Leader>+C`.
+Files can now be formatted using the `<Leader>-c-f` key sequence. The leader
+key is by default `\`. Automatic formatting can be activated using `<Leader>-C`.
 
 ### Visual Studio Code
 
