@@ -71,7 +71,8 @@ for different common editors.
 
 ### Vim
 
-To integrate the formatting rules into Vim, please install `clang-format` and
+To integrate the formatting rules into Vim, please install `clang-format`
+(into the system, as exemplified above) and
 [vim-clang-format](https://github.com/rhysd/vim-clang-format) and add the
 following into your `.vimrc`:
 ```
@@ -86,7 +87,9 @@ key is by default `\`. Automatic formatting can be activated using `<Leader>+C`.
 
 ### Visual Studio Code
 
-Install the extension
+To integrate the formatting rules into Visual Studio Code, please install
+`clang-format` (into the system, as exemplified above) and the Visual Studio
+Code extension
 [Clang-Format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format).
 In the extension settings, set the path to the format file in the `style`
 field, according to `file:${HOME}/.opendlv-clangformat`.
