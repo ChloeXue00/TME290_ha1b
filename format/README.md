@@ -11,7 +11,7 @@ needed.
 To download the file, run:
 
 ```bash
-$ wget -O ${HOME}/.opendlv-clangformat https://git.opendlv.org/core/opendlv-template-microservice/-/raw/main/format/opendlv-clangformat
+wget -O ${HOME}/.opendlv-clangformat https://git.opendlv.org/core/opendlv-template-microservice/-/raw/main/format/opendlv-clangformat
 ```
 
 In order to automatically format a source code file make sure to first install
