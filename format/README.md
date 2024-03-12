@@ -17,12 +17,12 @@ wget -O ${HOME}/.opendlv-clangformat https://git.opendlv.org/core/opendlv-templa
 In order to automatically format a source code file make sure to first install
 `clang-format`.
 
-Ubuntu:
+If using Ubuntu:
 ```bash
 sudo apt install clang-format
 ```
 
-Arch Linux:
+If using Arch Linux:
 ```bash
 sudo pacman -S clang
 ```
