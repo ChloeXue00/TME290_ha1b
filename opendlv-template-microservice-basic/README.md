@@ -33,7 +33,7 @@ See the `Dockerfile` for more information.
 
 The following Docker command will build the microservice:
 ```bash
-docker build -t registry.opendlv.org/core/opendlv-template-microservice-basic:local .
+docker build -t registry.opendlv.org/community/opendlv-template-microservice-basic:local .
 ```
 
 The microservice is automatically built for the following architectures (as part
@@ -46,11 +46,11 @@ of the GitLab CI/CD pipeline):
 
 The following Docker command will run the microservice:
 ```bash
-docker run -ti --init --rm --net=host registry.opendlv.org/core/opendlv-template-microservice-basic:local --cid=111 --verbose
+docker run -ti --init --rm --net=host registry.opendlv.org/community/opendlv-template-microservice-basic:local --cid=111 --verbose
 ```
 Note that the `local` tag only exists if first building locally. In most cases
 use the latest pre-built image from the GitLab registry. Find all available tags
-[![here]](https://git.opendlv.org/core/opendlv-template-microservice-basic/container_registry).
+[![here]](https://git.opendlv.org/community/opendlv-template-microservice-basic/container_registry).
 
 ### Arguments
 
