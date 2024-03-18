@@ -58,7 +58,7 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/opendlv-message-standard.hpp
     COMMAND ${CMAKE_BINARY_DIR}/cluon-msc --cpp
     --out=${CMAKE_BINARY_DIR}/opendlv-message-standard.hpp 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/${OPENDLV_MESSAGE_STANDARD}
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/${OPENDLV_MESSAGE_STANARD}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/${OPENDLV_MESSAGE_STANDARD}
     ${CMAKE_BINARY_DIR}/cluon-msc)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
