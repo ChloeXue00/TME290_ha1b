@@ -2,15 +2,6 @@
  * Copyright (C) 2024 OpenDLV
  */
 
-message opendlv.sim.FrameEuler [id = 1001] {
-  float x [id = 1];
-  float y [id = 2];
-  float z [id = 3];
-  float roll [id = 4];
-  float pitch [id = 5];
-  float yaw [id = 6];
-}
-
 message opendlv.sim.KinematicState [id = 1002] {
   float vx [id = 1];
   float vy [id = 2];
@@ -28,10 +19,74 @@ message opendlv.sim.Frame [id = 1003] {
   float qy [id = 5];
   float qz [id = 6];
   float qw [id = 7];
+  uint32 frameId [id = 8];
 }
 
 message opendlv.sim.Command [id = 1004] {
-  int32 command [id = 1];
+  string command [id = 1];
+}
+
+message opendlv.meta.SampleProperty [id = 1010] {
+  string key [id = 1];
+  string value [id = 2];
+}
+
+message opendlv.meta.StreamProperty [id = 1011] {
+  string key [id = 1];
+  string value [id = 2];
+}
+
+message opendlv.meta.SubFrame [id = 1014] {
+  float x [id = 1];
+  float y [id = 2];
+  float z [id = 3];
+  float qx [id = 4];
+  float qy [id = 5];
+  float qz [id = 6];
+  float qw [id = 7];
+  uint32 frameId [id = 8];
+}
+
+message opendlv.meta.CalibrationVisualDistortion [id = 1015] {
+  float k1 [id = 1];
+  float k2 [id = 2];
+  float k3 [id = 3];
+  float p1 [id = 4];
+  float p2 [id = 5];
+}
+
+message opendlv.meta.CalibrationCameraIntrinsic [id = 1016] {
+  float fx [id = 1];
+  float fy [id = 2];
+  float cx [id = 3];
+  float cy [id = 4];
+}
+
+message opendlv.meta.CalibrationExtrinsic [id = 1017] {
+  float x [id = 1];
+  float y [id = 2];
+  float z [id = 3];
+  float qx [id = 4];
+  float qy [id = 5];
+  float qz [id = 6];
+  float qw [id = 7];
+  uint32 frameId [id = 8];
+}
+
+message opendlv.meta.FrameShapeShm [id = 1020] {
+  string format [id = 1];
+  string location [id = 2];
+  uint32 frameId [id = 3];
+}
+
+message opendlv.meta.FrameShape [id = 1021] {
+  string format [id = 1];
+  bytes data [id = 2];
+  uint32 frameId [id = 3];
+}
+
+message opendlv.proxy.StepReading [id = 1029] {
+  int32 steps [id = 1];
 }
 
 message opendlv.proxy.AccelerationReading [id = 1030] {
@@ -121,12 +176,20 @@ message opendlv.proxy.GeodeticWgs84PositionReading [id = 19] {
   double longitude [id = 3];
 }
 
+message opendlv.proxy.ImageReadingShm [id = 1054] {
+  string format [id = 1];
+  uint32 width [id = 2];
+  uint32 height [id = 3];
+  string location [id = 4];
+  uint32 sampleId [id = 5];
+}
+
 message opendlv.proxy.ImageReading [id = 1055] {
   string format [id = 1];
   uint32 width [id = 2];
   uint32 height [id = 3];
   bytes data [id = 4];
-  uint32 frameId [id = 5];
+  uint32 sampleId [id = 5];
 }
 
 message opendlv.proxy.RemoteMessageReading [id = 1056] {
@@ -134,11 +197,24 @@ message opendlv.proxy.RemoteMessageReading [id = 1056] {
   string message [id = 2];
 }
 
+message opendlv.proxy.PointCloudAngularLayeredReadingShm [id = 1060] {
+  float layerAngle [id = 1];
+  string format [id = 2];
+  uint32 count [id = 3];
+  string location [id = 4];
+  uint32 sampleId [id = 5];
+}
+
 message opendlv.proxy.PointCloudAngularLayeredReading [id = 1061] {
   float layerAngle [id = 1];
   string format [id = 2];
   uint32 count [id = 3];
   bytes data [id = 4];
+  uint32 sampleId [id = 5];
+}
+
+message opendlv.proxy.StepRequest [id = 1079] {
+  int32 steps [id = 1];
 }
 
 message opendlv.proxy.PressureRequest [id = 1080] {
@@ -232,7 +308,7 @@ message opendlv.system.LogMessage [id = 1103] {
 }
 
 message opendlv.system.Command [id = 1104] {
-  int32 command [id = 1];
+  string command [id = 1];
 }
 
 message opendlv.logic.sensation.Direction [id = 1110] {
@@ -253,19 +329,13 @@ message opendlv.logic.sensation.Geolocation [id = 1116] {
   float heading [id = 4];
 }
 
-message opendlv.logic.sensation.Equilibrioception [id = 1017] {
+message opendlv.logic.sensation.Equilibrioception [id = 1117] {
   float vx [id = 1];
   float vy [id = 2];
   float vz [id = 3];
   float rollRate [id = 4];
   float pitchRate [id = 5];
   float yawRate [id = 6];
-}
-
-message opendlv.logic.sensation.OrientationEuler [id = 1118] {
-  float roll [id = 1];
-  float pitch [id = 2];
-  float yaw [id = 3];
 }
 
 message opendlv.logic.sensation.Orientation [id = 1119] {
@@ -276,32 +346,32 @@ message opendlv.logic.sensation.Orientation [id = 1119] {
 }
 
 message opendlv.logic.perception.DetectionType [id = 1130] {
-  uint32 frameId [id = 1];
+  uint32 sampleId [id = 1];
   uint32 detectionId [id = 2];
   uint32 type [id = 3];
 }
 
 message opendlv.logic.perception.DetectionProperty [id = 1131] {
-  uint32 frameId [id = 1];
+  uint32 sampleId [id = 1];
   uint32 detectionId [id = 2];
   string property [id = 3];
 }
 
 message opendlv.logic.perception.DetectionDirection [id = 1132] {
-  uint32 frameId [id = 1];
+  uint32 sampleId [id = 1];
   uint32 detectionId [id = 2];
   float azimuthAngle [id = 3];
   float zenithAngle [id = 4];
 }
 
 message opendlv.logic.perception.DetectionDistance [id = 1133] {
-  uint32 frameId [id = 1];
+  uint32 sampleId [id = 1];
   uint32 detectionId [id = 2];
   float distance [id = 3];
 }
 
 message opendlv.logic.perception.DetectionBoundingBox [id = 1134] {
-  uint32 frameId [id = 1];
+  uint32 sampleId [id = 1];
   uint32 detectionId [id = 2];
   float x [id = 3];
   float y [id = 4];
@@ -310,7 +380,7 @@ message opendlv.logic.perception.DetectionBoundingBox [id = 1134] {
 }
 
 message opendlv.logic.perception.DetectionPosition [id = 1135] {
-  uint32 frameId [id = 1];
+  uint32 sampleId [id = 1];
   uint32 detectionId [id = 2];
   float x [id = 3];
   float y [id = 4];
@@ -318,7 +388,7 @@ message opendlv.logic.perception.DetectionPosition [id = 1135] {
 }
 
 message opendlv.logic.perception.DetectionSurface [id = 1136] {
-  uint32 frameId [id = 1];
+  uint32 sampleId [id = 1];
   uint32 detectionId [id = 2];
   string format [id = 3];
   bytes data [id = 4];
@@ -342,13 +412,13 @@ message opendlv.logic.action.PreviewPoint [id = 1173] {
 }
 
 message opendlv.logic.action.GlobalPath [id = 1180] {
-  uint32 length [id = 1];
-  string format [id = 2];
+  string format [id = 1];
+  uint32 count [id = 2];
   bytes data [id = 3];
 }
 
 message opendlv.logic.action.LocalPath [id = 1181] {
-  uint32 length [id = 1];
-  string format [id = 2];
+  string format [id = 1];
+  uint32 count [id = 2];
   bytes data [id = 3];
 }
