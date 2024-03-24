@@ -147,6 +147,10 @@ message opendlv.proxy.ElectricCurrentReading [id = 1042] {
   float electricCurrent [id = 1];
 }
 
+message opendlv.proxy.StateOfChargeReading [id = 1043] {
+  float stateOfCharge [id = 1];
+}
+
 message opendlv.proxy.GroundSteeringReading [id = 1045] {
   float groundSteering [id = 1];
 }

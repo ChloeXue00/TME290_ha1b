@@ -18,6 +18,7 @@ before_script:
 build-amd64:
   tags:
     - docker-build
+#    - gitlab-org-docker
   stage: build
   script:
     - docker build .
@@ -27,6 +28,7 @@ build-amd64:
 release:
   tags:
     - docker-build
+#    - gitlab-org-docker
   stage: deploy
   script:
     - docker run --privileged --rm tonistiigi/binfmt --install all
