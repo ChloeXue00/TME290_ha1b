@@ -19,7 +19,6 @@ message opendlv.sim.Frame [id = 1003] {
   float qy [id = 5];
   float qz [id = 6];
   float qw [id = 7];
-  uint32 frameId [id = 8];
 }
 
 message opendlv.sim.Command [id = 1004] {
@@ -44,7 +43,6 @@ message opendlv.meta.SubFrame [id = 1014] {
   float qy [id = 5];
   float qz [id = 6];
   float qw [id = 7];
-  uint32 frameId [id = 8];
 }
 
 message opendlv.meta.CalibrationVisualDistortion [id = 1015] {
@@ -76,13 +74,11 @@ message opendlv.meta.CalibrationExtrinsic [id = 1017] {
 message opendlv.meta.FrameShapeShm [id = 1020] {
   string format [id = 1];
   string location [id = 2];
-  uint32 frameId [id = 3];
 }
 
 message opendlv.meta.FrameShape [id = 1021] {
   string format [id = 1];
   bytes data [id = 2];
-  uint32 frameId [id = 3];
 }
 
 message opendlv.proxy.StepReading [id = 1029] {
@@ -291,6 +287,11 @@ message opendlv.proxy.RemoteMessageRequest [id = 1095] {
   string message [id = 2];
 }
 
+message opendlv.proxy.LedRequest [id = 1096] {
+  string format [id = 1];
+  bytes data [id = 2];
+}
+
 message opendlv.system.SignalStatusMessage [id = 1100] {
   int32 code [id = 1];
   string description [id = 2];
@@ -333,7 +334,7 @@ message opendlv.logic.sensation.Geolocation [id = 1116] {
   float heading [id = 4];
 }
 
-message opendlv.logic.sensation.Equilibrioception [id = 1117] {
+message opendlv.logic.sensation.Motion [id = 1117] {
   float vx [id = 1];
   float vy [id = 2];
   float vz [id = 3];
