@@ -9,7 +9,9 @@ RUN apk update && \
         make \
         linux-headers
 
-ADD . /opt/sources
+ADD CMakeLists.txt FindCluonMsc.cmake /opt/sources/
+ADD src /opt/sources/src
+
 RUN mkdir /opt/build /opt/out && \
     cd /opt/build && \
     cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/opt/out \
