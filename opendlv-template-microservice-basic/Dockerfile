@@ -1,6 +1,6 @@
 # Copyright (C) 2024 OpenDLV
 
-FROM alpine:3.19 as builder
+FROM alpine:3.19 AS builder
 
 RUN apk update && \
     apk --no-cache add \
