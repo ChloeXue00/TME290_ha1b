@@ -24,3 +24,4 @@ TODO: Add explaination on how to handle dependenceis in microservices.
 In general:
 * Dependencies should only be included in the Dockerfile
 * With exception from header-only libraries, which should be added to a 'thirdparty' folder alongside the 'src' folder.
+# TME290_ha1b
