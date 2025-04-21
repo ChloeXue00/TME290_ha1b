@@ -1,6 +1,27 @@
-build
-b
+# Build directories and artifacts
+build/
+b/
+out/
+*.o
+*.a
+*.so
 
-.DS_store
-.vscode
+# OS system files
+.DS_Store
+
+# Editor configs
+.vscode/
+.idea/
+
+# Formatting rules (local only)
 .clang-format
+.opendlv-clangformat
+
+# Logs and temp files
+*.log
+*.swp
+*~
+
+# Docker artifacts
+*.tar
+*.img

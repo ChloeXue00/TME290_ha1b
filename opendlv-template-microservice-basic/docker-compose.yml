@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  microservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: microservice
+    command: ["/usr/bin/opendlv-template-microservice", "--cid=132", "--verbose"]
+    network_mode: "host"
+    tty: true
+
+  listener:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: listener
+    command: ["/usr/bin/listener", "--cid=132"]
+    network_mode: "host"
+    tty: true
+
+  sender:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sender
+    command: ["/usr/bin/sender", "--cid=132"]
+    network_mode: "host"
+    stdin_open: true
+    tty: true

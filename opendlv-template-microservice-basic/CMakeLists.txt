@@ -70,6 +70,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(${PROJECT_NAME}
   ${CMAKE_CURRENT_SOURCE_DIR}/src/${PROJECT_NAME}.cpp
   ${CMAKE_BINARY_DIR}/opendlv-message-standard.hpp)
+add_executable(sender src/sender.cpp)
+add_executable(listener src/listener.cpp)
+
 
 target_link_libraries(${PROJECT_NAME}
     Threads::Threads)

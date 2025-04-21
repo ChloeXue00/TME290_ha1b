@@ -29,19 +29,29 @@ int32_t main(int32_t argc, char **argv)
 
   cluon::OD4Session od4(cid);
 
-  auto onPedalPositionRequest{[&verbose](cluon::data::Envelope &&envelope) {
-    auto const ppr =
-        cluon::extractMessage<opendlv::proxy::PedalPositionRequest>(
+  auto onGroundSpeedRequest{[&od4, &verbose](cluon::data::Envelope &&envelope) {
+    auto const gsr =
+        cluon::extractMessage<opendlv::proxy::GroundSpeedRequest>(
             std::move(envelope));
 
-    float pos = ppr.position();
+    float gs = gsr.groundSpeed();
+    float multiplier = 2.5f;
     if (verbose) {
-      std::cout << "Got pedal position " << pos << std::endl;
+      std::cout << "Got ground Speed " << gs << std::endl;
+    }
+
+    opendlv::proxy::GroundSpeedReading reading;
+    reading.groundSpeed(gs * multiplier);
+
+    od4.send(reading);
+
+    if (verbose){
+      std::cout << "sent GroundSpeedReading: " << gs * multiplier << std::endl;
     }
   }};
 
   od4.dataTrigger(
-      opendlv::proxy::PedalPositionRequest::ID(), onPedalPositionRequest);
+      opendlv::proxy::GroundSpeedRequest::ID(), onGroundSpeedRequest);
 
   while (od4.isRunning()) {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
